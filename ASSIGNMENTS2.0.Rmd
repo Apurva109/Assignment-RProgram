@@ -1,0 +1,448 @@
+---
+title: "R Programming"
+author: "Apurva Pokhrel"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Question 1
+
+Create a vector of size 10, having the values 5,7,9,11,13,13,11,9,7,5. Compute the sum, mean, highest and lowest of these values. Compute the length of this vector? Find the variance and standard deviation for the data of this vector, using the formula for variance and standard deviation. Compare these values by computing the variance and standard deviation using R function. Sort this array values in decreasing order. 
+
+```{r soln1}
+# create the vector
+vec <- c(5, 7, 9, 11, 13, 13, 11, 9, 7, 5)
+
+# calculate the sum, mean, max and min
+vec_sum <- sum(vec)
+vec_mean <- mean(vec)
+vec_max <- max(vec)
+vec_min <- min(vec)
+
+# calculate the length of the vector
+vec_len <- length(vec)
+
+# calculate the variance and standard deviation using the formula
+vec_var <- sum((vec - mean(vec))^2) / (length(vec) - 1)
+vec_sd <- sqrt(vec_var)
+
+# calculate the variance and standard deviation using R functions
+vec_var_r <- var(vec)
+vec_sd_r <- sd(vec)
+
+# print the results
+cat("Variance (formula):", vec_var, "\n")
+cat("Standard deviation (formula):", vec_sd, "\n")
+cat("Variance (R function):", vec_var_r, "\n")
+cat("Standard deviation (R function):", vec_sd_r, "\n")
+
+# sort the vector in decreasing order
+vec_sorted <- sort(vec, decreasing = TRUE)
+
+# print the sorted vector
+cat("Sorted vector (decreasing order):", vec_sorted, "\n")
+
+```
+
+
+
+### Question 2
+
+Create a vector of first 50 even numbers, starting from 2. Also create a vector having values 30 down to 1, as 30, 29, ...,1 
+
+```{r soln2}
+# create a vector of the first 50 even numbers starting from 2
+vec_even <- seq(from = 2, by = 2, length.out = 50)
+
+# create a vector with values from 30 down to 1
+vec_down <- 30:1
+
+# print the vector
+cat("The vector of the first 50 even numbers starting from 2 is:", vec_even, "\n")
+
+
+# print the vector
+cat("The vector with values from 30 down to 1 is:", vec_down, "\n")
+
+
+```
+
+### Question 3
+Create a vector of size 10 with 5th and 7th values as missing (store these values as NA). Use the “is.na()” to find locations of missing data. 
+
+```{r soln3}
+# Create a vector of size 10 with missing values
+my_vec <- c(1, 2, 3, 4, NA, 6, NA, 8, 9, 10)
+
+# Use the "is.na()" function to find the locations of missing data
+missing_data <- which(is.na(my_vec))
+
+# Print the locations of missing data
+print(missing_data)
+
+```
+
+### Question 4
+Create a vector of characters of size 5, consisting of values: “This” “is” “a” “character” “vector”. Find the index of value “is” in the vector using which() or match(). 
+
+```{r soln4}
+# Create a vector of characters
+my_vec <- c("This", "is", "a", "character", "vector")
+
+# Find the index of "is" in the vector using the "match()" function
+index_of_is <- match("is", my_vec)
+
+# Print the index of "is"
+print(index_of_is)
+
+```
+
+### Question 5
+It is always good to store numerical values rather than textual data. However, while input or output the textual values are easier to understand. An example, for this is as follows in R: 
+> Fivepointscale=c(1:5) 
+> names(Fivepointscale) = c("Not Satisfactory", "Satisfactory", "Fair", "Good", "Very Good") 
+> Feedback = Fivepointscale[c("Good", "Satisfactory")] 
+Create a 7-point scale of information input and use this scale to input feedback of 5 students about a question like “Feedback of experience of using an application (Bad, Somewhat bad, not good, ok, good, very good, excellent)”. Find the average of the feedback. 
+
+
+
+```{r soln5}
+# Create a 7-point scale
+Sevenpointscale <- c(1:7)
+names(Sevenpointscale) <- c("Bad", "Somewhat bad", "Not good", "OK", "Good", "Very good", "Excellent")
+
+# Input feedback from 5 students
+Feedback <- c("Good", "Very good", "Not good", "OK", "Excellent")
+
+# Convert feedback to numerical values based on the 7-point scale
+Feedback_numeric <- Sevenpointscale[Feedback]
+
+# Find the average feedback
+Avg_feedback <- mean(Feedback_numeric)
+
+# Print the average feedback
+print(paste("The average feedback is:", Avg_feedback))
+```
+
+
+### Question 6
+
+Create two strings and concatenate them.
+
+```{r soln6}
+# Create two strings
+string1 <- "Hello"
+string2 <- "world!"
+
+# Concatenate the strings using the paste() function
+concatenated_string <- paste(string1, string2)
+
+# Print the concatenated string
+print(concatenated_string)
+
+```
+
+### Question 7
+
+Create a long string of words separated by punctuation marks. Replace all the punctuation marks in the string using gsub("[[:punct:]]", "", stringName) function. Find the number of words in the string without punctuation marks. Find the number of distinct words and its count, if possible. 
+
+
+```{r soln7}
+# Create a long string of words separated by punctuation marks
+stringName <- "This is a long string, with many words! It also contains several punctuation marks, such as commas, periods, exclamation marks, and question marks?"
+
+# Replace all the punctuation marks in the string using gsub() function
+stringName <- gsub("[[:punct:]]", "", stringName)
+
+# Split the string into words using the strsplit() function
+words <- strsplit(stringName, " ")[[1]]
+
+# Find the number of words in the string without punctuation marks
+num_words <- length(words)
+
+# Print the number of words
+print(paste("The number of words in the string without punctuation marks is:", num_words))
+
+# Find the number of distinct words and their count
+unique_words <- unique(words)
+num_unique_words <- length(unique_words)
+
+# Print the number of distinct words and their count
+print(paste("The number of distinct words in the string is:", num_unique_words))
+print("The count of each unique word is:")
+table(words)
+
+```
+
+### Question 8
+
+Store content in external files for the following types of data in R: 
+(i) Vectors (ii) Lists (iii) Arrays (iv) Data frames (v) Factors 
+Read those contents into R. Perform operations link sorting on vector data, finding the length of lists and adding data items in list, accessing different elements of array and comparing it to other values, accessing different components of data frames and factors. 
+
+```{r soln8}
+print("NOT DONE")
+```
+
+### Question 9
+
+Create two matrices of 5*5 size using R, add, subtract and multiply these two matrices. 
+
+```{r soln9}
+# Create two matrices
+matrix1 <- matrix(1:25, nrow=5)
+matrix2 <- matrix(26:50, nrow=5)
+
+# Add the two matrices
+add_result <- matrix1 + matrix2
+
+# Subtract the two matrices
+sub_result <- matrix1 - matrix2
+
+# Multiply the two matrices
+mult_result <- matrix1 %*% matrix2
+
+# Print the results
+print("Matrix 1:")
+print(matrix1)
+
+print("Matrix 2:")
+print(matrix2)
+
+print("Addition result:")
+print(add_result)
+
+print("Subtraction result:")
+print(sub_result)
+
+print("Multiplication result:")
+print(mult_result)
+
+```
+
+
+### Question 10
+
+Perform transpose of a matrix. 
+
+```{r soln10}
+# Create a matrix
+mat <- matrix(c(1, 2, 3, 4, 5, 6), nrow = 2, ncol = 3)
+
+# Print original matrix
+cat("Original matrix:\n")
+print(mat)
+
+# Transpose matrix
+trans_mat <- t(mat)
+
+# Print transposed matrix
+cat("Transposed matrix:\n")
+print(trans_mat)
+
+```
+
+### Question 11
+Find the inverse of a matrix
+
+```{r soln11}
+# create a matrix
+A <- matrix(c(1, 2, 3, 4), nrow = 2)
+
+# find the inverse of the matrix
+A_inv <- solve(A)
+
+# print the inverse of the matrix
+A_inv
+
+# verify that A multiplied by its inverse gives the identity matrix
+A %*% A_inv
+
+```
+
+### Question 12
+
+Create a list of a factor. Find the occurrences of each factor in the list
+```{r soln12}
+# Create a list of a factor
+my_list <- list(factor("apple"), factor("orange"), factor("banana"), 
+                 factor("apple"), factor("banana"), factor("pear"), factor("pear"))
+
+# Find the occurrences of each factor in the list
+table(unlist(my_list))
+```
+
+### Question 13
+
+Write function to find the largest and smallest values in a 3-dimensional array of size 3*3*3. You should use parameter passing. 
+
+```{r soln13}
+find_max_min <- function(arr) {
+  max_val <- max(arr)
+  min_val <- min(arr)
+  return(list(max_val = max_val, min_val = min_val))
+}
+
+# Create a 3x3x3 array
+arr <- array(c(1:27), dim = c(3, 3, 3))
+
+# Call the function to find the max and min values
+result <- find_max_min(arr)
+
+# Print the max and min values
+cat("Max value:", result$max_val, "\n")
+cat("Min value:", result$min_val, "\n")
+
+
+```
+### Question 14
+
+Find the eigen values and eigen vectors of a symmetric matrix
+
+```{r soln14}
+# Create a symmetric matrix
+A <- matrix(c(1, 2, 2, 3), nrow = 2)
+
+# Find the eigenvalues and eigenvectors
+eigen_values <- eigen(A)$values
+eigen_vectors <- eigen(A)$vectors
+
+# Print the results
+cat("Eigenvalues:", eigen_values, "\n")
+cat("Eigenvectors:\n", eigen_vectors, "\n")
+
+```
+### Question 15
+
+Create a table of showing the States of 20 students, assume these students stay in 5 different states. Now create a factor of these states and then compute the frequency of each factor (Hint: You may use factor() and tapply() functions) 
+```{r soln15}
+# Create a vector of 20 student states
+states <- c("West Bengal", "Maharashtra", "Uttar Pradesh", "West Bengal", "Tamil Nadu", "Uttar Pradesh", "West Bengal", "Maharashtra", "Uttar Pradesh", "Tamil Nadu","West Bengal", "Tamil Nadu", "Uttar Pradesh", "Maharashtra", "West Bengal", "Tamil Nadu", "Uttar Pradesh", "Maharashtra", "West Bengal", "Tamil Nadu")
+
+# Convert the states vector to a factor
+states_factor <- factor(states)
+
+# Compute the frequency of each state using tapply()
+state_freq <- tapply(states_factor, states_factor, length)
+
+# Print the frequency table
+state_freq
+```
+### Question 16
+
+Consider a state wise list of income of few persons. Use factor function to create a frequency division of income into 5 factor classes e.g. 10000-50000; 50000-100000 etc. 
+
+```{r soln16}
+# Create a vector of incomes
+incomes <- c(55000, 30000, 75000, 90000, 20000, 60000, 40000, 80000, 95000, 35000)
+
+# Use the cut() function to divide the incomes into 5 factor classes
+income_factors <- cut(incomes, breaks = c(10000, 50000, 100000, 150000, 200000, 250000), labels = c("10,000-50,000", "50,000-100,000", "100,000-150,000", "150,000-200,000", "200,000-250,000"))
+
+# Compute the frequency of each income factor using table()
+income_freq <- table(income_factors)
+
+# Print the frequency table
+income_freq
+
+
+```
+### Question 17
+Explore different functions in R about strings, arrays, vectors, factors. You may also explore different methods of plotting the data
+
+```{r soln17}
+# create some example data
+strings <- c("hello", "world", "this is a mixed case string")
+array1 <- array(1:12, dim=c(3, 4, 1))
+array2 <- array(13:24, dim=c(3, 4, 1))
+vector1 <- c(1, 2, 3, 4, 5)
+vector2 <- c(6, 7, 8, 9, 10)
+factor1 <- factor(c("apple", "banana", "orange", "apple"), levels=c("apple", "banana", "orange"), labels=c("A", "B", "C"))
+
+# concatenate strings
+paste(strings, collapse=" ") # "hello world this is a mixed case string"
+
+# convert strings to uppercase or lowercase
+toupper(strings) # "HELLO" "WORLD" "THIS IS A MIXED CASE STRING"
+tolower(strings) # "hello" "world" "this is a mixed case string"
+
+# extract substrings from strings
+substring(strings, 6, 11) # " world" "rld" "s is a"
+
+# get dimensions of arrays
+dim(array1) # 3 4 1
+dim(array2) # 3 4 1
+
+# apply a function to each element or row/column of an array
+apply(array1, c(1,2), sum) # returns a 3x4 matrix of sums of each element in array1
+
+# get length of vectors
+length(vector1) # 5
+length(vector2) # 5
+
+# get sum of elements in vectors
+sum(vector1) # 15
+sum(vector2) # 40
+
+# sort vectors in ascending order
+sort(vector1) # 1 2 3 4 5
+sort(vector2) # 6 7 8 9 10
+
+# get the levels of a factor
+levels(factor1) # "apple" "banana" "orange"
+
+# get a frequency table of the levels in a factor
+table(factor1) # returns a table of the frequency of each level in factor1
+
+# create scatterplot
+plot(vector1, vector2)
+
+# create histogram
+hist(vector1)
+
+# create boxplot
+boxplot(vector1)
+
+# create bar chart
+barplot(table(factor1))
+
+# create a matrix and transpose it
+matrix1 <- matrix(1:9, ncol=3)
+matrix1_transpose <- t(matrix1)
+
+# calculate the mean of a vector
+mean(vector1) # 3
+
+# calculate the median of a vector
+median(vector2) # 8
+
+# calculate the variance of a vector
+var(vector1) # 2.5
+
+# calculate the standard deviation of a vector
+sd(vector2) # 1.581139
+
+# create a pie chart
+pie(table(factor1))
+
+# create a line plot
+plot(1:5, vector1, type="l")
+
+# create a scatterplot with different colors and shapes for each point
+colors <- c("red", "green", "blue", "orange", "purple")
+shapes <- c(0, 1, 2, 3, 4)
+plot(vector1, vector2, col=colors, pch=shapes)
+
+# create a bar chart with custom colors
+colors2 <- c("red", "green", "blue")
+barplot(table(factor1), col=colors2)
+
+# create a boxplot with custom labels
+boxplot(list(vector1, vector2), names=c("Group 1", "Group2"))
+
+```
+
+
